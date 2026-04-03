@@ -70,7 +70,6 @@ export const siteConfig = {
       "Pilot experimental curriculum trial evaluating approaches to broadening medical students' exposure to the range of illness experiences, with a focus on depression education.",
     skills: ["Curriculum Evaluation", "Medical Education", "Mixed Methods Research"],
     citations: {
-      googleScholar: { url: "https://scholar.google.com/citations?user=exrRbXMAAAAJ", label: "Google Scholar" },
       pubmed: { url: "https://pubmed.ncbi.nlm.nih.gov/31348072/", label: "PubMed" },
     },
   },
@@ -86,7 +85,6 @@ export const siteConfig = {
       "Led comprehensive mixed-methods study on how environmental design influences team interactions in family medicine clinics. Secured $18,000 grant, conducted 120 hours of observations, facilitated 9 focus groups with 40 participants.",
     skills: ["Mixed Methods Research", "Grant Writing", "Human Subjects Protocols", "NVivo"],
     citations: {
-      googleScholar: { url: "https://scholar.google.com/citations?user=exrRbXMAAAAJ", label: "Google Scholar" },
       researchGate: { url: "https://www.researchgate.net/publication/332030639", label: "ResearchGate" },
       pubmed: { url: "https://pubmed.ncbi.nlm.nih.gov/30913920/", label: "PubMed" },
     },
@@ -102,9 +100,6 @@ export const siteConfig = {
     description:
       "Analysis of cost patterns and savings achievement across Medicare Shared Savings Program ACOs, finding that higher-baseline-cost organizations were more likely to achieve shared savings.",
     skills: ["Healthcare Economics", "ACO Analytics", "Value-Based Care", "Stata", "SAS"],
-    citations: {
-      googleScholar: { url: "https://scholar.google.com/citations?user=exrRbXMAAAAJ", label: "Google Scholar" },
-    },
   },
   {
     title: "An efficient process of gathering diverse community opinions to inform an intervention",
@@ -116,9 +111,6 @@ export const siteConfig = {
     description:
       "Methodological contribution on gathering diverse community opinions to inform health system interventions, presented at a national implementation science conference.",
     skills: ["Community Engagement", "Implementation Science", "Qualitative Research"],
-    citations: {
-      googleScholar: { url: "https://scholar.google.com/citations?user=exrRbXMAAAAJ", label: "Google Scholar" },
-    },
   },
   {
     title: "Approaches and challenges to optimizing primary care teams' electronic health record usage",
@@ -132,7 +124,6 @@ export const siteConfig = {
       "Qualitative study examining how primary care teams use and optimize EHR systems, identifying key barriers and facilitators to effective adoption.",
     skills: ["EHR Optimization", "Qualitative Research", "Grounded Theory", "Primary Care"],
     citations: {
-      googleScholar: { url: "https://scholar.google.com/citations?user=exrRbXMAAAAJ", label: "Google Scholar" },
       pubmed: { url: "https://pubmed.ncbi.nlm.nih.gov/25584902/", label: "PubMed" },
     },
   },
@@ -146,9 +137,6 @@ export const siteConfig = {
     description:
       "Conference proceedings presenting preliminary findings on EHR optimization challenges in primary care settings.",
     skills: ["EHR Optimization", "Health Informatics", "Primary Care"],
-    citations: {
-      googleScholar: { url: "https://scholar.google.com/citations?user=exrRbXMAAAAJ", label: "Google Scholar" },
-    },
   },
 ],
   projects: [
@@ -187,9 +175,9 @@ export const siteConfig = {
       skills: ["Logistic Regression", "Population Health", "Healthcare Disparities", "SAS"],
     },
     {
-      name: "Skill-Based Job Transition Discovery Platform (O*NET-Powered MVP)",
+      name: "Healthcare Workforce Transition Discovery Platform (O*NET-Powered MVP)",
       description:
-        "Production-minded MVP web application built with FastAPI, PostgreSQL, and Redis/Celery that leverages O*NET occupation and skill data plus baseline deterministic matching and logistic-regression calibration to generate Ready Now, Trainable, and Long-Term Reskill job transition recommendations with skill gap analysis, training path suggestions, and a feedback-driven learning system.",
+        "Full-stack MVP built with FastAPI, PostgreSQL, and Redis/Celery that uses O*NET occupation and skill data with logistic-regression calibration to surface job-transition paths — originally motivated by healthcare workforce shortages and the question of which adjacent roles clinical and administrative staff can reskill into. Generates Ready Now, Trainable, and Long-Term Reskill recommendations with gap analysis.",
       link: "https://zaherkarp.com/skillsprout/",
       skills: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Redis", "Celery", "scikit-learn", "Logistic Regression", "O*NET", "Python", "Pydantic"],
     },
@@ -205,20 +193,13 @@ export const siteConfig = {
     {
       company: "Baltimore Health Analytics",
       title: "Lead Data Engineer",
-      dateRange: "Nov 2025 - Present",
+      dateRange: "Sep 2025 - Present",
       context: "The person who makes sure the methodology is right before it ships to health plans.",
       bullets: [
-        "Leading data engineering and methodology for a Medicare Advantage analytics platform in Python and SQL, working within a legacy Rails orchestration layer",
-        "Building HEDIS measure pipelines and Star Rating simulation models that turn CMS Technical Notes into production-grade, testable logic",
-        "Designing data architecture across several small databases for claims, eligibility, and clinical quality integration across multiple health plan contracts",
+        "Leading data engineering and methodology for a Medicare Advantage analytics platform in Python and SQL, replacing manual processes in a legacy Rails orchestration layer with reproducible, tested pipelines",
+        "Building HEDIS measure pipelines (SUPD, SPC, PQA adherence) and Star Rating simulation models that turn CMS Technical Notes into production-grade logic — including audit-ready measure validation aligned to NCQA specifications",
+        "Architecting claims, eligibility, and clinical quality data integration across multiple health plan contracts, normalizing heterogeneous source formats into a unified analytic layer",
       ],
-    },
-    {
-      company: "Sustainable Clarity",
-      title: "Data Engineering Consultant",
-      dateRange: "Sep 2025 - Oct 2025",
-      context: "Brief independent consulting engagement between roles.",
-      bullets: [],
     },
     {
       company: "Health Catalyst",
@@ -226,10 +207,10 @@ export const siteConfig = {
       dateRange: "Aug 2020 - Aug 2025",
       context: "Owned the data platform for a clinical quality product used by health systems nationwide.",
       bullets: [
-        "Redesigned AWS S3 cloud storage architecture into a medallion (bronze/silver/gold) ELT pattern with Python and dbt, cutting infrastructure costs by 50% and reducing pipeline load times by a full day",
-        "Built self-service aggregation systems in SQL and Python within a Rails-based ETL pipeline that reduced reporting turnaround from monthly to on-demand daily",
-        "Developed unified financial tracking dashboards in Tableau and Power BI monitoring $MM+ in revenue and contract performance for executive stakeholders",
-        "Improved production data quality by validating against RxNorm and clinical quality standards across the Redshift-based analytics platform",
+        "Redesigned AWS S3 cloud storage architecture into a medallion (bronze/silver/gold) ELT pattern with Python and dbt, halving cloud storage and compute spend and cutting a multi-day pipeline refresh to same-day delivery",
+        "Built self-service aggregation systems in SQL and Python within a Rails-based ETL pipeline, replacing a monthly manual reporting cycle with on-demand daily refreshes used by product and customer success teams",
+        "Developed unified financial tracking dashboards in Tableau and Power BI monitoring $MM+ in revenue and contract performance, giving executive stakeholders real-time visibility into renewal risk",
+        "Improved production data quality by validating against RxNorm and clinical quality standards across the Redshift-based analytics platform, reducing downstream measure discrepancies flagged in client audits",
       ],
     },
     {
@@ -240,7 +221,7 @@ export const siteConfig = {
       bullets: [
         "Led ROI modeling and sales support that contributed to $1MM+ in recurring revenue by translating clinical workflow data into customer-facing value demonstrations",
         "Built dashboards that drove 7x growth in internal user adoption and eliminated 400+ hours of manual reporting preparation annually",
-        "Managed analytics roadmap and cross-functional stakeholder relationships across product, engineering, and customer success teams",
+        "Managed analytics roadmap and cross-functional stakeholder relationships across product, engineering, and customer success teams, aligning data priorities with quarterly business objectives",
       ],
     },
     {
@@ -251,7 +232,7 @@ export const siteConfig = {
       bullets: [
         "First analytics hire — built HIPAA- and HITRUST-compliant reporting infrastructure from scratch, establishing the data foundation the product ran on",
         "Designed reusable SQL scripts deployed across 50+ health systems, standardizing performance benchmarks used in sales and marketing",
-        "Stood up Sisense BI platform and built the initial dashboard suite for internal and external reporting",
+        "Stood up Sisense BI platform and built the initial dashboard suite, giving sales, product, and customer success teams their first self-service access to product usage data",
       ],
     },
     {
@@ -261,7 +242,7 @@ export const siteConfig = {
       context: "The research role where I learned that the tools to study complex healthcare systems didn't exist yet.",
       bullets: [
         "Served as lead statistician on ACO cost research, guiding methodology, analysis, and board compliance for a multi-site published study",
-        "Integrated EMR, claims, and satisfaction survey sources to identify high-cost populations and evaluate quality of care using regression and interrupted time series",
+        "Integrated EMR, claims, and satisfaction survey sources to identify high-cost populations and evaluate quality of care, producing actionable cohort analyses used in ACO governance decisions",
         "Assessed implementation fidelity for a care coordination pilot and delivered formal recommendations to program leadership",
       ],
     },
