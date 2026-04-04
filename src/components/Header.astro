@@ -2,11 +2,7 @@
 import { siteConfig } from "../config";
 import ThemeToggle from "./ThemeToggle.astro";
 
-const hasPublications = siteConfig.publications && siteConfig.publications.length > 0;
-const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
-const hasPresentations = siteConfig.presentations && siteConfig.presentations.length > 0;
-const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
-const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const navSections = siteConfig.sections.filter((s) => s.showInNav);
 ---
 
 <header
@@ -15,98 +11,16 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 >
   <nav class="max-w-7xl mx-auto px-8 py-4">
     <ul class="flex items-center gap-8 justify-center">
-      <li>
-        <a
-          href="/#about"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
-        >
-          About
-        </a>
-      </li>
-      {
-        hasPublications && (
-          <li>
-            <a
-              href="/#publications"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Publications
-            </a>
-          </li>
-        )
-      }
-      {
-        hasProjects && (
-          <li>
-            <a
-              href="/#projects"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Projects
-            </a>
-          </li>
-        )
-      }
-      {
-        hasPresentations && (
-          <li>
-            <a
-              href="/#presentations"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Talks
-            </a>
-          </li>
-        )
-      }
-      {
-        hasExperience && (
-          <li>
-            <a
-              href="/#experience"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Experience
-            </a>
-          </li>
-        )
-      }
-      {
-        hasEducation && (
-          <li>
-            <a
-              href="/#education"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
-            >
-              Education
-            </a>
-          </li>
-        )
-      }
-      <li>
-        <a
-          href="/#now"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
-        >
-          Now
-        </a>
-      </li>
-      <li>
-        <a
-          href="/#writing"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
-        >
-          Writing
-        </a>
-      </li>
-      <li>
-        <a
-          href="/#contact"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
-        >
-          Contact
-        </a>
-      </li>
+      {navSections.map((section) => (
+        <li>
+          <a
+            href={`/#${section.id}`}
+            class="text-gray-700 hover:text-black transition-colors font-medium"
+          >
+            {section.label}
+          </a>
+        </li>
+      ))}
       <li>
         <ThemeToggle />
       </li>
