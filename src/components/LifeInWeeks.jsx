@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { BIRTH_DATE, LIFE_YEARS, EVENTS } from "../data/life-in-weeks.js";
 
 const WEEKS_PER_YEAR = 52;
