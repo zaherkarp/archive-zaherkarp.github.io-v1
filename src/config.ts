@@ -34,7 +34,7 @@ export const siteConfig = {
     blog: "/blog",
   },
   aboutMe:
-    "I started in writing and editing, spent eight years in mixed-methods health services research at UW-Madison, and moved into data engineering when I realized the tools I needed to study complex healthcare systems didn't exist yet. The thread across all of it is an interest in complex systems, not numbers for their own sake. The numbers and tools are just the best available instrument for whatever system I'm studying. Right now that means Medicare Star Ratings, HEDIS pipelines, and data integration across claims and eligibility sources. I build with Python and SQL and I care most about analytics that ship as products, not reports. I continue to engage with research questions at the edges of the field \u2014 my writing focuses on methodology problems in healthcare data that don't have clean answers yet.",
+    "I started in writing and editing, spent nearly a decade in mixed-methods health services research at UW-Madison starting in 2009, and moved into data engineering when I realized the tools I needed to study complex healthcare systems didn't exist yet. The thread across all of it is an interest in complex systems, not numbers for their own sake. The numbers and tools are just the best available instrument for whatever system I'm studying. Right now that means Medicare Star Ratings, HEDIS pipelines, and data integration across claims and eligibility sources. I build with Python and SQL and I care most about analytics that ship as products, not reports. I continue to engage with research questions at the edges of the field \u2014 my writing focuses on methodology problems in healthcare data that don't have clean answers yet.",
   skillCategories: [
     {
       label: "Clinical Quality & Regulatory",
@@ -237,13 +237,14 @@ export const siteConfig = {
     },
     {
       company: "University of Wisconsin-Madison, Department of Family Medicine and Community Health",
-      title: "Assistant Researcher",
-      dateRange: "Dec 2015 - Jun 2018",
-      context: "The research role where I learned that the tools to study complex healthcare systems didn't exist yet.",
+      title: "Assistant Researcher (and earlier roles)",
+      dateRange: "Sep 2009 - Jun 2018",
+      context: "Nine years across the UW School of Medicine, starting as a research specialist and advancing to lead statistician on published, federally-funded work.",
       bullets: [
-        "Served as lead statistician on ACO cost research, guiding methodology, analysis, and board compliance for a multi-site published study",
-        "Integrated EMR, claims, and satisfaction survey sources to identify high-cost populations and evaluate quality of care, producing actionable cohort analyses used in ACO governance decisions",
-        "Assessed implementation fidelity for a care coordination pilot and delivered formal recommendations to program leadership",
+        "Analyzed 50 years of longitudinal survey data on 10,000+ adults in the Wisconsin Longitudinal Study, integrating survey, health, and administrative records across decades of follow-up",
+        "Led qualitative research on EHR optimization in primary care teams, published in the Journal of Innovation in Health Informatics — an early study of how health systems fail to extract value from clinical data",
+        "Served as lead statistician on ACO cost research integrating EMR, claims, and satisfaction data, producing cohort analyses used in ACO governance decisions and a peer-reviewed publication",
+        "Managed IRB compliance, federal reporting, and data security protocols across studies funded by AHRQ, NIH, and PCORI",
       ],
     },
     {
