@@ -193,7 +193,7 @@ export const siteConfig = {
     {
       company: "Baltimore Health Analytics",
       title: "Lead Data Engineer",
-      dateRange: "Sep 2025 - Present",
+      dateRange: "Nov 2025 - Present",
       context: "The person who makes sure the methodology is right before it ships to health plans.",
       bullets: [
         "Leading data engineering and methodology for a Medicare Advantage analytics platform in Python and SQL, replacing manual processes in a legacy Rails orchestration layer with reproducible, tested pipelines",
