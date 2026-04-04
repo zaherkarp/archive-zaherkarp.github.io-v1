@@ -1,0 +1,66 @@
+---
+import { siteConfig } from "../config";
+const hasTestimonials = siteConfig.testimonials && siteConfig.testimonials.length > 0;
+---
+
+{
+  hasTestimonials && (
+    <section id="testimonials" class="p-8 sm:p-12 md:p-16 lg:p-24">
+      <div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div class="lg:col-span-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold text-gray-900">
+              Testimonials
+            </h2>
+            <div
+              class="w-[75px] h-[5px] mt-2 rounded-full"
+              style={`background-color: ${siteConfig.accentColor}`}
+            />
+          </div>
+
+          <div class="lg:col-span-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {siteConfig.testimonials.map((t) => (
+                <div class="testimonial-card relative p-6 bg-gray-50 rounded-2xl border border-gray-200">
+                  <div
+                    class="text-5xl font-serif leading-none mb-2 select-none"
+                    style={`color: ${siteConfig.accentColor}; opacity: 0.3`}
+                    aria-hidden="true"
+                  >
+                    &ldquo;
+                  </div>
+                  <div class="text-sm text-gray-700 leading-relaxed whitespace-pre-line testimonial-text">
+                    {t.text}
+                  </div>
+                  <div class="mt-4 pt-4 border-t border-gray-200">
+                    <p class="font-bold text-gray-900 text-sm">{t.name}</p>
+                    <p class="text-xs text-gray-500">{t.title}, {t.company}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  :global([data-theme="dark"]) .testimonial-card {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+
+  :global([data-theme="dark"]) .testimonial-text {
+    color: #d1d5db;
+  }
+
+  :global([data-theme="dark"]) .testimonial-card p.font-bold {
+    color: #f9fafb;
+  }
+
+  :global([data-theme="dark"]) .testimonial-card .border-t {
+    border-color: #374151;
+  }
+</style>
