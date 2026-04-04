@@ -1,8 +1,15 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import { callApi, type ApiRequest, type ApiResult } from "../lib/skillsprout-api";
-import { listOccupations } from "../lib/skillsprout-engine";
-import type { TrajectoryResponse, TransitionMatch } from "../lib/skillsprout-engine";
-import { testCases, runTestCase, type TestResult } from "../data/skillsprout-test-cases";
+import {
+  callApi,
+  listOccupations,
+  testCases,
+  runTestCase,
+  type ApiRequest,
+  type ApiResult,
+  type TrajectoryResponse,
+  type TransitionMatch,
+  type TestResult,
+} from "@zaherkarp/skillsprout-client";
 
 const ACCENT = "#3b82f6";
 
