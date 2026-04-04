@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import { siteConfig } from "../config";
+
+const allPosts = await getCollection('blog', ({ data }) => data.draft !== true);
+
+// Build 52-week grid, rolling back from today
+const now = new Date();
+const weeks: { start: Date; end: Date; posts: { title: string; slug: string }[] }[] = [];
+
+for (let i = 51; i >= 0; i--) {
+  const weekEnd = new Date(now);
+  weekEnd.setDate(now.getDate() - i * 7);
+  const weekStart = new Date(weekEnd);
+  weekStart.setDate(weekEnd.getDate() - 6);
+
+  const postsInWeek = allPosts.filter((post) => {
+    const pubDate = post.data.publishDate;
+    return pubDate >= weekStart && pubDate <= weekEnd;
+  });
+
+  weeks.push({
+    start: weekStart,
+    end: weekEnd,
+    posts: postsInWeek.map((p) => ({ title: p.data.title, slug: p.slug })),
+  });
+}
+
+const getIntensity = (count: number) => {
+  if (count === 0) return 0;
+  if (count === 1) return 1;
+  if (count === 2) return 2;
+  return 3;
+};
+
+const formatShortDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date);
+---
+
+<div class="blog-activity-grid mb-6">
+  <div class="flex items-center gap-1.5 flex-wrap">
+    {weeks.map((week) => {
+      const intensity = getIntensity(week.posts.length);
+      const tooltipLines = week.posts.length > 0
+        ? `${formatShortDate(week.start)}–${formatShortDate(week.end)}: ${week.posts.map(p => p.title).join(', ')}`
+        : `${formatShortDate(week.start)}–${formatShortDate(week.end)}: No posts`;
+      return (
+        <div
+          class={`activity-dot w-2.5 h-2.5 rounded-sm shrink-0 ${intensity === 0 ? 'activity-empty' : ''}`}
+          style={intensity > 0 ? `background-color: ${siteConfig.accentColor}; opacity: ${intensity === 1 ? 0.4 : intensity === 2 ? 0.7 : 1}` : ''}
+          title={tooltipLines}
+        />
+      );
+    })}
+  </div>
+  <p class="text-xs text-gray-500 mt-1.5">52 weeks of writing activity</p>
+</div>
+
+<style>
+  .activity-empty {
+    background-color: #e5e7eb;
+  }
+  :global([data-theme="dark"]) .activity-empty {
+    background-color: #374151;
+  }
+</style>
