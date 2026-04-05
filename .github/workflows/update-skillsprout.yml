@@ -2,7 +2,7 @@ name: Update SkillSprout Client
 
 on:
   repository_dispatch:
-    types: [skillsprout-release]
+    types: [skillsprout-client-updated]
   workflow_dispatch:
   schedule:
     - cron: '0 6 * * *'
