@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "../config";
+import { siteConfig, utmLink } from "../config";
 ---
 
 <section id="contact" class="contact-section p-8 sm:p-12 md:p-16 lg:p-24">
@@ -43,7 +43,7 @@ import { siteConfig } from "../config";
 
           {siteConfig.social?.linkedin && (
             <a
-              href={siteConfig.social.linkedin}
+              href={utmLink(siteConfig.social.linkedin, "contact", "profile")}
               target="_blank"
               rel="noopener noreferrer"
               class="contact-link-card flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
@@ -69,7 +69,7 @@ import { siteConfig } from "../config";
 
           {siteConfig.social?.github && (
             <a
-              href={siteConfig.social.github}
+              href={utmLink(siteConfig.social.github, "contact", "profile")}
               target="_blank"
               rel="noopener noreferrer"
               class="contact-link-card flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
@@ -113,7 +113,7 @@ import { siteConfig } from "../config";
 
           {siteConfig.social?.researchgate && (
             <a
-              href={siteConfig.social.researchgate}
+              href={utmLink(siteConfig.social.researchgate, "contact", "profile")}
               target="_blank"
               rel="noopener noreferrer"
               class="contact-link-card flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"

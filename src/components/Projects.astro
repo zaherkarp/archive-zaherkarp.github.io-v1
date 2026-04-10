@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "../config";
+import { siteConfig, utmLink } from "../config";
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 ---
 
@@ -32,7 +32,7 @@ const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
                     >
                       {project.link && (
                         <a
-                          href={project.link}
+                          href={project.link.includes("github.com") ? utmLink(project.link, "projects", "github") : project.link}
                           target="_blank"
                           rel="noopener noreferrer"
                           class="absolute inset-0 z-[1] rounded-xl sm:rounded-2xl"

@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "../config";
+import { siteConfig, utmLink } from "../config";
 
 const hasPublications = siteConfig.publications && siteConfig.publications.length > 0;
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
@@ -51,7 +51,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           {
             siteConfig.social?.linkedin && (
               <a
-                href={siteConfig.social.linkedin}
+                href={utmLink(siteConfig.social.linkedin, "contact", "profile")}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -112,7 +112,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           {
             siteConfig.social?.github && (
               <a
-                href={siteConfig.social.github}
+                href={utmLink(siteConfig.social.github, "contact", "profile")}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -140,7 +140,7 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           {
             siteConfig.social?.researchgate && (
               <a
-                href={siteConfig.social.researchgate}
+                href={utmLink(siteConfig.social.researchgate, "contact", "profile")}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="ResearchGate"

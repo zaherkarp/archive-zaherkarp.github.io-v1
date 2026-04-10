@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "../config";
+import { siteConfig, utmLink } from "../config";
 
 const username = "zaherkarp";
 
@@ -174,7 +174,7 @@ const publicRepoCount = user?.public_repos || repos.filter((r: any) => !r.fork).
         {user && (
           <div class="mt-6 flex items-center gap-4">
             <a
-              href={`https://github.com/${username}?utm_source=zaherkarp_site&utm_medium=contact&utm_campaign=profile`}
+              href={utmLink(`https://github.com/${username}`, "contact", "profile")}
               target="_blank"
               rel="noopener noreferrer"
               class="gh-profile-link text-sm font-medium transition-colors"
@@ -265,7 +265,7 @@ const publicRepoCount = user?.public_repos || repos.filter((r: any) => !r.fork).
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {topRepos.map((repo: any) => (
               <a
-                href={`${repo.html_url}?utm_source=zaherkarp_site&utm_medium=projects&utm_campaign=github`}
+                href={utmLink(repo.html_url, "projects", "github")}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="gh-repo-card p-4 sm:p-5 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 block"
