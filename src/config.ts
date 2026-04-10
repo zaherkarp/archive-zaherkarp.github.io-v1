@@ -34,7 +34,7 @@ export const siteConfig = {
     blog: "/blog",
   },
   aboutMe:
-    "I started in writing and editing, spent nearly a decade in mixed-methods health services research at UW-Madison starting in 2009, and moved into data engineering when I realized the tools I needed to study complex healthcare systems didn't exist yet. The thread across all of it is an interest in complex systems, not numbers for their own sake. The numbers and tools are just the best available instrument for whatever system I'm studying. Right now that means Medicare Star Ratings, HEDIS pipelines, and data integration across claims and eligibility sources. I build with Python and SQL and I care most about analytics that ship as products, not reports. My primary stack is Python, SQL, dbt, and AWS, deployed in Airflow and Databricks environments. I'm now leading a data function and moving deliberately into organizational leadership — because the problems I want to work on require change at a scale that individual technical contribution can't reach. I continue to engage with research questions at the edges of the field \u2014 my writing focuses on methodology problems in healthcare data that don't have clean answers yet.",
+    "I started in writing and editing, spent nearly a decade in mixed-methods health services research at UW-Madison starting in 2009, and moved into data engineering when I realized the tools I needed to study complex healthcare systems didn't exist yet. The thread across all of it is an interest in complex systems, not numbers for their own sake. The numbers and tools are just the best available instrument for whatever system I'm studying. Right now that means Medicare Star Ratings, HEDIS pipelines, and data integration across claims and eligibility sources. I build with Python and SQL and I care most about analytics that ship as products, not reports. I'm now leading a data function and moving deliberately into organizational leadership — because the problems I want to work on require change at a scale that individual technical contribution can't reach. I continue to engage with research questions at the edges of the field \u2014 my writing focuses on methodology problems in healthcare data that don't have clean answers yet.",
   skillCategories: [
     {
       label: "Clinical Quality & Regulatory",
@@ -199,7 +199,7 @@ export const siteConfig = {
       dateRange: "Nov 2025 - Present",
       context: "Leading the data engineering and analytics methodology function for a Medicare Advantage quality platform — coordinating engineering, QA, and data science across two geographies, owning the product roadmap, and translating CMS regulatory guidance into production-grade systems.",
       bullets: [
-        "Leading data engineering and methodology for a Medicare Advantage analytics platform in Python and SQL, replacing manual processes in a legacy Rails orchestration layer with reproducible, tested pipelines",
+        "Rebuilding an inherited reporting layer into reproducible, tested Python and SQL pipelines with full audit trail and CMS- and NCQA-aligned validation",
         "Building HEDIS measure pipelines (SUPD, SPC, PQA adherence) and Star Rating simulation models that turn CMS Technical Notes into production-grade logic — including audit-ready measure validation aligned to NCQA specifications",
         "Architecting claims, eligibility, and clinical quality data integration across multiple health plan contracts, normalizing heterogeneous source formats into a unified analytic layer",
       ],
@@ -231,7 +231,7 @@ export const siteConfig = {
       company: "healthfinch",
       title: "Healthcare Analytics Specialist",
       dateRange: "Dec 2017 - Dec 2018",
-      context: "First analytics hire — built the reporting infrastructure from zero.",
+      context: "Built the reporting infrastructure from scratch.",
       bullets: [
         "First analytics hire — built HIPAA- and HITRUST-compliant reporting infrastructure from scratch, establishing the data foundation the product ran on",
         "Designed reusable SQL scripts deployed across 50+ health systems, standardizing performance benchmarks used in sales and marketing",
@@ -411,9 +411,9 @@ export const siteConfig = {
     { id: "about",         label: "About",          showInNav: true },
     { id: "stats",         label: "Stats",          showInNav: false },
     { id: "projects",      label: "Projects",       showInNav: true },
-    { id: "writing",       label: "Writing",        showInNav: true },
+    { id: "writing",       label: "Writing",        showInNav: false },
     { id: "publications",  label: "Publications",   showInNav: true },
-    { id: "presentations", label: "Speaking & Writing", showInNav: true },
+    { id: "presentations", label: "Speaking",        showInNav: true },
     { id: "experience",    label: "Experience",      showInNav: true },
     { id: "testimonials",  label: "Testimonials",   showInNav: true },
     { id: "education",     label: "Education",       showInNav: true },
