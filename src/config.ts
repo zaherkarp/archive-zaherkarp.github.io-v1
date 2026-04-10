@@ -27,9 +27,9 @@ export const siteConfig = {
   },
   social: {
     email: "email@zaherkarp.com",
-    linkedin: "https://linkedin.com/in/zkarp",
-    github: "https://github.com/zaherkarp",
-    researchgate: "https://www.researchgate.net/profile/Zaher-Karp",
+    linkedin: "https://linkedin.com/in/zkarp?utm_source=zaherkarp_site&utm_medium=contact&utm_campaign=profile",
+    github: "https://github.com/zaherkarp?utm_source=zaherkarp_site&utm_medium=contact&utm_campaign=profile",
+    researchgate: "https://www.researchgate.net/profile/Zaher-Karp?utm_source=zaherkarp_site&utm_medium=contact&utm_campaign=profile",
     tableau: "https://public.tableau.com/app/profile/zaher.karp/vizzes",
     blog: "/blog",
   },
@@ -153,7 +153,7 @@ export const siteConfig = {
       name: "Medicare Advantage Insight Engine",
       description:
         "Free, local Medicare Advantage news monitor that fetches public sources, scores items for analytic relevance, and posts structured alerts to a webhook endpoint. Teams-compatible.",
-      link: "https://github.com/zaherkarp/medicare-advantage-insight-engine",
+      link: "https://github.com/zaherkarp/medicare-advantage-insight-engine?utm_source=zaherkarp_site&utm_medium=projects&utm_campaign=github",
       skills: ["Python", "Medicare Advantage", "Automation", "Webhook"],
     },
     {
