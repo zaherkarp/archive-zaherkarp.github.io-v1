@@ -130,20 +130,15 @@ import { siteConfig } from "../config";
   </svg>
   <div class="h-full mx-auto p-8 sm:p-12 md:p-24 flex items-center">
     <div>
-      <h2
-        class="text-pretty text-xl sm:text-2xl md:text-5xl font-bold tracking-tight hero-greeting animate-fade-in"
-      >
-        Hello! 👋
-      </h2>
       <h1
         class="mt-6 sm:mt-8 md:mt-10 text-pretty text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold tracking-tight hero-title animate-fade-in animation-delay-200"
       >
-        I'm <span class="hero-name">{siteConfig.name}</span>
+        Hi, I'm <span class="hero-name">{siteConfig.name}</span>.
       </h1>
       <p
         class="mt-4 sm:mt-6 md:mt-8 text-pretty text-base sm:text-lg md:text-xl/8 font-medium hero-subtitle animate-fade-in animation-delay-400"
       >
-        {siteConfig.title} &mdash; I build production data systems for healthcare organizations that can't afford to get the numbers wrong.
+        I build production data systems for healthcare organizations that can't afford to get the numbers wrong.
       </p>
     </div>
   </div>
@@ -426,10 +421,6 @@ import { siteConfig } from "../config";
     stroke: #e5e7eb;
   }
 
-  .hero-greeting {
-    color: #374151;
-  }
-
   .hero-title {
     color: #1f2937;
   }
@@ -465,10 +456,6 @@ import { siteConfig } from "../config";
 
   :global([data-theme="dark"]) .hero-svg {
     stroke: #374151;
-  }
-
-  :global([data-theme="dark"]) .hero-greeting {
-    color: #d1d5db;
   }
 
   :global([data-theme="dark"]) .hero-title {
