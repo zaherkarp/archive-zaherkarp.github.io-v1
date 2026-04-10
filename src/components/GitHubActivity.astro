@@ -147,11 +147,12 @@ for (let w = 0; w < weeksBack; w++) {
   weeks.push(allCells.slice(w * 7, (w + 1) * 7));
 }
 
-// Top repos (non-fork, by stars then recent push)
+// Top repos (allowlist, non-fork, by stars then recent push)
+const allowedRepos = ["medicare-advantage-insight-engine", "skillsprout", "zaherkarp.github.io"];
 const topRepos = repos
-  .filter((r: any) => !r.fork)
+  .filter((r: any) => !r.fork && allowedRepos.includes(r.name))
   .sort((a: any, b: any) => b.stargazers_count - a.stargazers_count || new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime())
-  .slice(0, 4);
+  .slice(0, 3);
 
 const totalStars = repos
   .filter((r: any) => !r.fork)
