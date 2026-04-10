@@ -34,7 +34,7 @@ export const siteConfig = {
     blog: "/blog",
   },
   aboutMe:
-    "I started in writing and editing, spent nearly a decade in mixed-methods health services research at UW-Madison starting in 2009, and moved into data engineering when I realized the tools I needed to study complex healthcare systems didn't exist yet. The thread across all of it is an interest in complex systems, not numbers for their own sake. The numbers and tools are just the best available instrument for whatever system I'm studying. Right now that means Medicare Star Ratings, HEDIS pipelines, and data integration across claims and eligibility sources. I build with Python and SQL and I care most about analytics that ship as products, not reports. I continue to engage with research questions at the edges of the field \u2014 my writing focuses on methodology problems in healthcare data that don't have clean answers yet.",
+    "I started in writing and editing, spent nearly a decade in mixed-methods health services research at UW-Madison starting in 2009, and moved into data engineering when I realized the tools I needed to study complex healthcare systems didn't exist yet. The thread across all of it is an interest in complex systems, not numbers for their own sake. The numbers and tools are just the best available instrument for whatever system I'm studying. Right now that means Medicare Star Ratings, HEDIS pipelines, and data integration across claims and eligibility sources. I build with Python and SQL and I care most about analytics that ship as products, not reports. My primary stack is Python, SQL, dbt, and AWS, deployed in Airflow and Databricks environments. I'm now leading a data function and moving deliberately into organizational leadership — because the problems I want to work on require change at a scale that individual technical contribution can't reach. I continue to engage with research questions at the edges of the field \u2014 my writing focuses on methodology problems in healthcare data that don't have clean answers yet.",
   skillCategories: [
     {
       label: "Clinical Quality & Regulatory",
@@ -78,6 +78,7 @@ export const siteConfig = {
     authors: "Karp Z, Kamnetz S, Wietfeldt N, Sinsky C, Molfenter T, Pandhi N",
     journal: "Health Environments Research & Design Journal",
     year: 2019,
+    featured: true,
     citationCount: 10,
     semanticScholarId: "PMID:30913920",
     link: "https://pubmed.ncbi.nlm.nih.gov/30913920/",
@@ -94,6 +95,7 @@ export const siteConfig = {
     authors: "Berkson S, Davis S, Karp Z, Jaffery J, Flood G, Pandhi N",
     journal: "International Journal of Healthcare Management",
     year: 2018,
+    featured: true,
     citationCount: 4,
     semanticScholarId: "DOI:10.1080/20479700.2018.1500760",
     link: "https://www.tandfonline.com/doi/abs/10.1080/20479700.2018.1507062",
@@ -117,6 +119,7 @@ export const siteConfig = {
     authors: "Pandhi N, Yang WL, Karp Z, Young A, Beasley JW, Kraft S, Carayon P",
     journal: "Journal of Innovation in Health Informatics",
     year: 2014,
+    featured: true,
     citationCount: 24,
     semanticScholarId: "PMID:25584902",
     link: "https://pubmed.ncbi.nlm.nih.gov/25584902/",
@@ -147,6 +150,20 @@ export const siteConfig = {
       skills: ["Chart.js", "PapaParse", "jsPDF", "JavaScript", "HTML", "Client-Side Analytics"],
     },
     {
+      name: "Medicare Advantage Insight Engine",
+      description:
+        "Free, local Medicare Advantage news monitor that fetches public sources, scores items for analytic relevance, and posts structured alerts to a webhook endpoint. Teams-compatible.",
+      link: "https://github.com/zaherkarp/medicare-advantage-insight-engine",
+      skills: ["Python", "Medicare Advantage", "Automation", "Webhook"],
+    },
+    {
+      name: "Healthcare Workforce Transition Discovery Platform (O*NET-Powered MVP)",
+      description:
+        "Full-stack MVP built with FastAPI, PostgreSQL, and Redis/Celery that uses O*NET occupation and skill data with logistic-regression calibration to surface job-transition paths — originally motivated by healthcare workforce shortages and the question of which adjacent roles clinical and administrative staff can reskill into. Generates Ready Now, Trainable, and Long-Term Reskill recommendations with gap analysis.",
+      link: "https://zaherkarp.com/skillsprout/",
+      skills: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Redis", "Celery", "scikit-learn", "Logistic Regression", "O*NET", "Python", "Pydantic"],
+    },
+    {
       name: "Lessons Learned from healthfinch's Charlie Practice Automation: A Case Study",
       description:
         "Analytics used in case study at OCHIN, Inc. examining healthfinch's Charlie Practice Automation Platform implementation across multiple community health centers. Focus on workflow optimization and return on investment achieved through data-driven decision making.",
@@ -174,27 +191,13 @@ export const siteConfig = {
       link: "",
       skills: ["Logistic Regression", "Population Health", "Healthcare Disparities", "SAS"],
     },
-    {
-      name: "Healthcare Workforce Transition Discovery Platform (O*NET-Powered MVP)",
-      description:
-        "Full-stack MVP built with FastAPI, PostgreSQL, and Redis/Celery that uses O*NET occupation and skill data with logistic-regression calibration to surface job-transition paths — originally motivated by healthcare workforce shortages and the question of which adjacent roles clinical and administrative staff can reskill into. Generates Ready Now, Trainable, and Long-Term Reskill recommendations with gap analysis.",
-      link: "https://zaherkarp.com/skillsprout/",
-      skills: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Redis", "Celery", "scikit-learn", "Logistic Regression", "O*NET", "Python", "Pydantic"],
-    },
-    {
-      name: "Law School Graduation Rates Analysis",
-      description:
-        "Statistical analysis of law school graduation rates using multivariate regression modeling. Conducted as part of research work at the Center for Patient Partnerships.",
-      link: "https://github.com/zaherkarp/law-graduation-rates",
-      skills: ["Regression Analysis", "Education Analytics", "Stata", "SAS"],
-    },
   ],
   experience: [
     {
       company: "Baltimore Health Analytics",
       title: "Lead Data Engineer",
       dateRange: "Nov 2025 - Present",
-      context: "The person who makes sure the methodology is right before it ships to health plans.",
+      context: "Leading the data engineering and analytics methodology function for a Medicare Advantage quality platform — coordinating engineering, QA, and data science across two geographies, owning the product roadmap, and translating CMS regulatory guidance into production-grade systems.",
       bullets: [
         "Leading data engineering and methodology for a Medicare Advantage analytics platform in Python and SQL, replacing manual processes in a legacy Rails orchestration layer with reproducible, tested pipelines",
         "Building HEDIS measure pipelines (SUPD, SPC, PQA adherence) and Star Rating simulation models that turn CMS Technical Notes into production-grade logic — including audit-ready measure validation aligned to NCQA specifications",
@@ -402,29 +405,15 @@ export const siteConfig = {
       company: "Health Catalyst",
       text: "I had the pleasure of working with Zaher Karp for four years at Health Catalyst, where he served as the Healthcare Analytics Manager for the Embedded Refills product.\n\nZaher was solely responsible for ensuring timely, accurate data delivery across multiple EHRs—Athena, Allscripts, Cerner, and Epic. He successfully led the migration of analytics from our previous platform, Sisense, to Pop Insights, and implemented automated weekly data refreshes for Cerner, significantly improving efficiency and reliability.\n\nDespite being the only engineer on the team, Zaher consistently delivered high-quality work. He is intelligent, thorough, and deeply committed to understanding customer needs. He often joined client calls to clarify requests and wasn't afraid to push back when necessary to protect data integrity and long-term scalability.\n\nI highly recommend Zaher for any role that requires a capable, dependable, and customer-focused data engineer.",
     },
-    {
-      name: "Jake St. Germain",
-      title: "Software Developer",
-      company: "Health Catalyst",
-      text: "The phrase \"had the privilege to work with\" does not even come close to the experience that I had working with Zaher. It became quickly apparent that he is deeply committed, profoundly intelligent, and highly versatile. On top of being a SQL \"wizard\", he worked tirelessly to optimize existing solutions and provided a great deal of cost savings in the process.\n\nTechnical qualifications aside, and he has many, one of my favorite things about Zaher was his ability to bring his passion, enthusiasm, and humor to any situation. Zaher and I commonly crossed paths at Health Catalyst's \"Open Space\" initiative where we would collaborate to foster learning through various knowledge sharing or working sessions. He would provide thought-provoking feedback and worked to help this initiative reach as many people as possible.\n\nI wholeheartedly recommend Zaher as someone who would improve any organization. They truly would be lucky to have him! He genuinely works hard to better the lives of those that enter our healthcare system and has indirectly improved the lives of so many patients and providers.",
-    },
-    {
-      name: "Emily Rodriguez",
-      title: "Professional Services Team Lead",
-      company: "Lunit (formerly Health Catalyst)",
-      text: "I had the pleasure of working with Zaher for almost 5 years at Healthfinch/Health Catalyst. Zaher was the mastermind behind the data dashboards that our customer success team and customers relied on. He provided expert guidance to analysts who needed assistance with their data migration to our system, and ensured any bugs or feature requests were addressed timely. Zaher was also always willing to take time to answer questions and explain the \"why\" behind our data. We were so fortunate to have his expertise.",
-    },
   ],
   sections: [
     { id: "hero",          label: "Home",           showInNav: false },
     { id: "about",         label: "About",          showInNav: true },
     { id: "stats",         label: "Stats",          showInNav: false },
-    { id: "now",           label: "Now",            showInNav: false },
     { id: "projects",      label: "Projects",       showInNav: true },
     { id: "writing",       label: "Writing",        showInNav: true },
-    { id: "demo",          label: "Live Demo",      showInNav: true },
     { id: "publications",  label: "Publications",   showInNav: true },
-    { id: "presentations", label: "Talks",          showInNav: true },
+    { id: "presentations", label: "Speaking & Writing", showInNav: true },
     { id: "experience",    label: "Experience",      showInNav: true },
     { id: "testimonials",  label: "Testimonials",   showInNav: true },
     { id: "education",     label: "Education",       showInNav: true },

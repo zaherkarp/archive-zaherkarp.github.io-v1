@@ -36,6 +36,9 @@ const publications = (siteConfig.publications || []).map((pub) => ({
   citationCount: liveCounts.get(pub.title) ?? pub.citationCount ?? 0,
 }));
 
+const featuredPubs = publications.filter((p) => p.featured);
+const otherPubs = publications.filter((p) => !p.featured);
+
 const maxCitations = hasPublications
   ? Math.max(...publications.map((p) => p.citationCount))
   : 0;
@@ -72,7 +75,7 @@ const maxCitations = hasPublications
 
           <div class="lg:col-span-8">
             <div class="space-y-8">
-              {publications.map((pub) => (
+              {featuredPubs.map((pub) => (
                 <article class="group relative">
                   <div class="block relative p-4 sm:p-6 md:p-8 pub-card rounded-xl sm:rounded-2xl border transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                     {pub.link && (
@@ -148,21 +151,6 @@ const maxCitations = hasPublications
 
                       {pub.citations && (
                         <div class="relative z-[2] flex flex-wrap gap-2 sm:gap-3 pt-2">
-                          {pub.citations.googleScholar && (
-                            <a
-                              href={pub.citations.googleScholar.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              class="citation-link inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg text-xs sm:text-sm font-medium border transition-all duration-300 hover:shadow-sm"
-                            >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                                <path d="M21 21l-6 -6" />
-                              </svg>
-                              {pub.citations.googleScholar.label || "Google Scholar"}
-                            </a>
-                          )}
                           {pub.citations.researchGate && (
                             <a
                               href={pub.citations.researchGate.url}
@@ -202,6 +190,43 @@ const maxCitations = hasPublications
                 </article>
               ))}
             </div>
+
+            {otherPubs.length > 0 && (
+              <div class="mt-8">
+                <p class="pub-description text-base sm:text-lg font-medium mb-4">
+                  {otherPubs.length} additional peer-reviewed publications &mdash;
+                  <a
+                    href="https://scholar.google.com/citations?user=exrRbXMAAAAJ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={`color: ${siteConfig.accentColor}`}
+                    class="underline"
+                  >
+                    View all on Google Scholar
+                  </a>
+                </p>
+                <ul class="space-y-2 pub-description text-sm sm:text-base list-disc list-inside">
+                  {otherPubs.map((pub) => (
+                    <li>
+                      {pub.link ? (
+                        <a
+                          href={pub.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="underline transition-colors"
+                          style={`color: ${siteConfig.accentColor}`}
+                        >
+                          {pub.title}
+                        </a>
+                      ) : (
+                        <span>{pub.title}</span>
+                      )}
+                      <span class="pub-authors"> &mdash; {pub.journal}, {pub.year}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

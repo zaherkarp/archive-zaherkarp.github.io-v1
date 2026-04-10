@@ -1,113 +1,38 @@
 ---
 import { siteConfig } from "../config";
-const hasPresentations = siteConfig.presentations && siteConfig.presentations.length > 0;
-
-// Group presentations by year (descending)
-const presentationsByYear = hasPresentations
-  ? Object.entries(
-      siteConfig.presentations.reduce<Record<number, typeof siteConfig.presentations>>(
-        (acc, pres) => {
-          (acc[pres.year] = acc[pres.year] || []).push(pres);
-          return acc;
-        },
-        {}
-      )
-    )
-      .sort(([a], [b]) => Number(b) - Number(a))
-  : [];
 ---
 
-{
-  hasPresentations && (
-    <section id="presentations" class="pres-section p-8 sm:p-12 md:p-16 lg:p-24">
-      <div>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
-          <div class="lg:col-span-4">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold pres-heading">
-              Presentations
-            </h2>
-            <div
-              class="w-[75px] h-[5px] mt-2 rounded-full"
-              style={`background-color: ${siteConfig.accentColor}`}
-            />
-            <p class="pres-subtext mt-4 text-sm sm:text-base">
-              {siteConfig.presentations.length} presentations across conferences, workshops, and seminars
-            </p>
-            <p class="pres-subtext mt-3 text-xs sm:text-sm italic">
-              Since 2018, my methodology work has shifted to long-form technical writing &mdash; see my <a href="/blog" style={`color: ${siteConfig.accentColor}; text-decoration: underline;`}>blog</a> for current work on Star Ratings methodology, ordinal regression, and HEDIS implementation.
-            </p>
-          </div>
+<section id="presentations" class="pres-section p-8 sm:p-12 md:p-16 lg:p-24">
+  <div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+      <div class="lg:col-span-4">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold pres-heading">
+          Speaking & Writing
+        </h2>
+        <div
+          class="w-[75px] h-[5px] mt-2 rounded-full"
+          style={`background-color: ${siteConfig.accentColor}`}
+        />
+      </div>
 
-          <div class="lg:col-span-8">
-            <div class="space-y-8">
-              {presentationsByYear.map(([year, presentations], idx) => (
-                <div class={idx >= 2 ? "pres-collapsible hidden" : ""}>
-                  <div class="flex items-center gap-3 mb-4">
-                    <span
-                      class="text-lg sm:text-xl font-bold font-mono"
-                      style={`color: ${siteConfig.accentColor}`}
-                    >
-                      {year}
-                    </span>
-                    <div class="flex-1 h-px pres-divider" />
-                  </div>
+      <div class="lg:col-span-8 space-y-8">
+        <div>
+          <h3 class="text-lg sm:text-xl font-semibold pres-title mb-3">Writing</h3>
+          <p class="pres-subtext text-base sm:text-lg leading-relaxed">
+            My current methodology work appears on my <a href="/blog" style={`color: ${siteConfig.accentColor}; text-decoration: underline;`}>blog</a> &mdash; covering Star Ratings methodology, HEDIS implementation, and data engineering in regulated healthcare environments.
+          </p>
+        </div>
 
-                  <div class="space-y-3">
-                    {presentations.map((pres) => (
-                      <div class="pres-card p-4 sm:p-5 rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">
-                        <h3 class="text-base sm:text-lg font-semibold pres-title">
-                          {pres.title}
-                        </h3>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mt-1.5">
-                          <span class="pres-event text-sm font-medium">
-                            {pres.event}
-                          </span>
-                          <span class="hidden sm:inline pres-dot">·</span>
-                          <span class="pres-location text-xs sm:text-sm">
-                            {pres.location}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-            {presentationsByYear.length > 2 && (
-              <button
-                id="pres-toggle"
-                class="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-300 hover:shadow-sm pres-toggle-btn"
-                style={`color: ${siteConfig.accentColor}; border-color: ${siteConfig.accentColor}40`}
-              >
-                <span class="pres-toggle-text">Show {presentationsByYear.length - 2} more years</span>
-                <svg class="w-4 h-4 transition-transform duration-300 pres-toggle-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            )}
-          </div>
+        <div>
+          <h3 class="text-lg sm:text-xl font-semibold pres-title mb-3">Conference Presentations</h3>
+          <p class="pres-subtext text-base sm:text-lg leading-relaxed">
+            17 conference presentations and seminars between 2010 and 2017, spanning implementation science, EHR optimization, primary care redesign, and patient engagement. Presented at AHRQ, AMIA-affiliated, and national primary care research venues.
+          </p>
         </div>
       </div>
-    </section>
-  )
-}
-
-<script>
-  const toggle = document.getElementById('pres-toggle');
-  if (toggle) {
-    let expanded = false;
-    toggle.addEventListener('click', () => {
-      expanded = !expanded;
-      document.querySelectorAll('.pres-collapsible').forEach(el => {
-        el.classList.toggle('hidden', !expanded);
-      });
-      const text = toggle.querySelector('.pres-toggle-text');
-      const arrow = toggle.querySelector('.pres-toggle-arrow');
-      if (text) text.textContent = expanded ? 'Show fewer' : toggle.dataset.moreText || 'Show more';
-      if (arrow) arrow.style.transform = expanded ? 'rotate(180deg)' : '';
-    });
-  }
-</script>
+    </div>
+  </div>
+</section>
 
 <style>
   .pres-section {
@@ -124,36 +49,6 @@ const presentationsByYear = hasPresentations
     color: #f9fafb;
   }
 
-  .pres-subtext {
-    color: #6b7280;
-  }
-  :global([data-theme="dark"]) .pres-subtext {
-    color: #9ca3af;
-  }
-
-  .pres-divider {
-    background-color: #e5e7eb;
-  }
-  :global([data-theme="dark"]) .pres-divider {
-    background-color: #374151;
-  }
-
-  .pres-card {
-    background-color: #ffffff;
-    border-color: #e5e7eb;
-  }
-  .pres-card:hover {
-    border-color: #d1d5db;
-  }
-  :global([data-theme="dark"]) .pres-card {
-    background-color: #1f2937;
-    border-color: #374151;
-  }
-  :global([data-theme="dark"]) .pres-card:hover {
-    background-color: #1e293b;
-    border-color: #4b5563;
-  }
-
   .pres-title {
     color: #111827;
   }
@@ -161,32 +56,10 @@ const presentationsByYear = hasPresentations
     color: #f9fafb;
   }
 
-  .pres-event {
-    color: #4b5563;
-  }
-  :global([data-theme="dark"]) .pres-event {
-    color: #d1d5db;
-  }
-
-  .pres-dot {
-    color: #9ca3af;
-  }
-
-  .pres-location {
+  .pres-subtext {
     color: #6b7280;
   }
-  :global([data-theme="dark"]) .pres-location {
+  :global([data-theme="dark"]) .pres-subtext {
     color: #9ca3af;
-  }
-
-  .pres-toggle-btn {
-    background-color: transparent;
-    cursor: pointer;
-  }
-  .pres-toggle-btn:hover {
-    background-color: #f3f4f6;
-  }
-  :global([data-theme="dark"]) .pres-toggle-btn:hover {
-    background-color: #1f2937;
   }
 </style>
