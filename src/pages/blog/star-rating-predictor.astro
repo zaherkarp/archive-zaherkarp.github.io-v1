@@ -1,0 +1,163 @@
+---
+// Draft blog post: General audience introduction to the Star Rating predictor with live demo.
+// This is a dedicated .astro page (not a content collection entry) so the InteractiveDemo
+// component can be embedded. It won't appear in the blog listing until a corresponding
+// content collection entry is added.
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BaseHead from '../../components/BaseHead.astro';
+import InteractiveDemo from '../../components/InteractiveDemo.astro';
+import { siteConfig } from '../../config';
+import '../../styles/global.css';
+import '../../styles/blog.css';
+
+const title = "What If You Could Predict Your Plan's Star Rating?";
+const description = "An interactive tool that lets Medicare Advantage health plans estimate their Star Rating from four quality inputs — and see which lever matters most.";
+const publishDate = new Date('2026-04-13');
+const tags = ["medicare", "star-ratings", "interactive", "healthcare", "quality"];
+const canonicalURL = new URL('/blog/star-rating-predictor/', Astro.site).href;
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+};
+
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": publishDate.toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": "Zaher Karp",
+    "url": "https://zaherkarp.com",
+  },
+};
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={`${title} - ${siteConfig.fullName}`}
+      description={description}
+      canonicalURL={canonicalURL}
+      type="article"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+  </head>
+  <body>
+    <Header />
+    <div class="blog-content">
+      <article class="blog-article">
+        <a href="/blog" class="back-link">← Back to Blog</a>
+        <h1>{title}</h1>
+        <div class="blog-meta">
+          <time datetime={publishDate.toISOString()}>
+            {formatDate(publishDate)}
+          </time>
+          <div class="blog-tags">
+            {tags.map((tag) => (
+              <span class="blog-tag">{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="blog-prose">
+          <p>
+            Every year, CMS assigns a Star Rating to each Medicare Advantage contract. The rating runs from 1 to 5 stars. It sounds simple. It is not.
+          </p>
+
+          <p>
+            Behind that single number are 42 measures across 9 domains — clinical quality, patient experience, medication management, administrative responsiveness, and more. Each measure carries a weight. The weights change. The cut-points shift. And the financial consequences are enormous.
+          </p>
+
+          <h2>Why one star matters more than you think</h2>
+
+          <p>
+            Plans that reach 4 stars qualify for <strong>Quality Bonus Payments</strong> — a 5% increase in their CMS benchmark payment. For a large plan with 200,000 members, that translates to roughly <strong>$50–80 million per year</strong> in additional revenue.
+          </p>
+
+          <p>
+            The jump from 3.9 to 4.0 stars can be worth tens of millions. The jump from 4.3 to 4.4? Almost nothing in marginal financial impact. This cliff function makes quality improvement ROI deeply nonlinear.
+          </p>
+
+          <p>
+            Below 2.5 stars for three consecutive years, CMS can terminate the contract entirely.
+          </p>
+
+          <h2>Four levers that move the needle</h2>
+
+          <p>
+            While the full Star Rating incorporates dozens of measures, four domains account for a disproportionate share of the outcome:
+          </p>
+
+          <ul>
+            <li><strong>HEDIS clinical quality</strong> — screening rates, chronic disease control, preventive care. The bread and butter of quality measurement.</li>
+            <li><strong>CAHPS member satisfaction</strong> — survey scores on provider communication, access, and customer service. Noisy but heavily weighted.</li>
+            <li><strong>Medication adherence</strong> — the percentage of members staying on their diabetes, hypertension, and cholesterol medications. Triple-weighted by CMS, and as little as 3 percentage points can separate a 3-star from a 5-star rating on a single measure.</li>
+            <li><strong>Readmission rate</strong> — unplanned hospital readmissions within 30 days. Newly triple-weighted for 2025, this one change contributed to the largest industry-wide star drop in years.</li>
+          </ul>
+
+          <h2>Try it yourself</h2>
+
+          <p>
+            The predictor below uses <a href="/blog/star-rating-predictor-methodology">ordinal logistic regression</a> — the standard statistical framework for ordered outcomes — calibrated to CMS 2025 measure weights and the real MA-PD star distribution. Adjust the four sliders and watch the predicted rating update in real time.
+          </p>
+
+          <p>
+            Pay attention to the <strong>"What Would Move the Needle?"</strong> panel at the bottom. It shows which quality lever offers the largest star gain from a feasible one-year improvement at your plan's current performance level. The answer changes depending on where you start.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <InteractiveDemo />
+
+    <div class="blog-content">
+      <article class="blog-article" style="padding-top: 0;">
+        <div class="blog-prose">
+          <h2>What you're seeing</h2>
+
+          <p>
+            The model runs entirely in your browser. No data leaves your machine. It computes a full probability distribution across all five star levels, not just a point estimate — because a plan sitting at 3.8 stars with a 35% chance of hitting 4.0 faces a very different strategic reality than one at 3.8 with a 5% chance.
+          </p>
+
+          <p>
+            The ordinal threshold visualization shows the model's internal cut-points — the boundaries where probability mass shifts from one star level to the next. As you move the sliders, watch the blue indicator (<code>z</code>) cross these thresholds. That is the core mechanism of ordinal logistic regression made visible.
+          </p>
+
+          <h2>What this does not do</h2>
+
+          <p>
+            This is a <strong>reduced-form predictor</strong>, not a full Star Rating simulator. It uses 4 composite inputs where CMS uses 42 individual measures. It does not include case-mix adjustment (CAI), improvement measures, or the county-level benchmarking that affects individual measure stars.
+          </p>
+
+          <p>
+            The coefficients are synthetic — calibrated to match CMS weight proportions and the 2025 star distribution, but not trained on contract-level data. The purpose is to build intuition about which levers matter and how the nonlinear structure of logistic regression creates sensitivity cliffs, not to replace actuarial modeling.
+          </p>
+
+          <p>
+            For the full statistical methodology, coefficient derivation, and literature references, see the <a href="/blog/star-rating-predictor-methodology">methodology post</a>.
+          </p>
+
+          <h2>The takeaway</h2>
+
+          <p>
+            Star Ratings are not a mystery. They follow a defined statistical process with published weights, and the relationship between quality inputs and star outcomes can be modeled, visualized, and reasoned about.
+          </p>
+
+          <p>
+            The hard part was never the math. It is deciding which lever to pull when every improvement dollar competes with twenty other priorities — and knowing that a 0.1-star gain might be worth $50 million or nothing at all, depending on which side of 4.0 you land.
+          </p>
+        </div>
+      </article>
+    </div>
+    <Footer />
+    <script data-goatcounter="https://zaher-karp.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>
