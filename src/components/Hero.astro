@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "../config";
+import { siteConfig, utmLink } from "../config";
 ---
 
 <div
@@ -175,7 +175,7 @@ import { siteConfig } from "../config";
     {
       siteConfig.social?.linkedin && (
         <a
-          href={siteConfig.social.linkedin}
+          href={utmLink(siteConfig.social.linkedin, "contact", "profile")}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
@@ -238,7 +238,7 @@ import { siteConfig } from "../config";
     {
       siteConfig.social?.github && (
         <a
-          href={siteConfig.social.github}
+          href={utmLink(siteConfig.social.github, "contact", "profile")}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
@@ -267,7 +267,7 @@ import { siteConfig } from "../config";
     {
       siteConfig.social?.researchgate && (
         <a
-          href={siteConfig.social.researchgate}
+          href={utmLink(siteConfig.social.researchgate, "contact", "profile")}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="ResearchGate"
